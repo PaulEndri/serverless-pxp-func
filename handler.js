@@ -1,36 +1,19 @@
-import SqlizeConnection from './src/database'
-import BungieClan from './src/database/models/bungieClan'
-
+import getClanlist from './src/tasks/getClanlist'
+import ClanRefresh from './src/tasks/clanRefresh'
 
 export function clanlist(event, context, callback)  {
-  const connection = SqlizeConnection()
-  const BungieClanModel = BungieClan(connection)
-
-  const response = {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true
-    },
-    body: ''
-  }
-
-  BungieClanModel.findAll({
-    attributes: ['name', 'group_id', 'member_count', 'platform'],
-    raw: true
-  })
-    .then((data) => {
-      response.body = JSON.stringify(data)
-
-      callback(null, response)
-
-      connection.close()
-    }).catch((e) => {
-      response.body = JSON.stringify(e)
-      response.statusCode = 500
-
-      callback(null, response)
-
-      connection.close()
-    })
+  getClanlist(event, context, callback)
 };
+
+export function refresh(event, context, callback) {
+  const refresh = new ClanRefresh()
+
+  refresh
+    .run()
+    .then(() => {
+      callback(null)
+    })
+    .catch(e => {
+      callback(true, e)
+    })
+}

@@ -39,3 +39,8 @@ functions:
       - http:
           path: clanlist
           method: get
+  refresh:
+    handler: handler.refresh
+    timeout: 60
+    events:
+      - schedule: rate(1 minutes)
