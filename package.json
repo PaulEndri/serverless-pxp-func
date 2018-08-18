@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "bungie-sdk-alpha": "0.0.11",
     "mysql2": "^1.5.3",
     "sequelize": "^4.38.0",
     "source-map-support": "^0.4.18"
