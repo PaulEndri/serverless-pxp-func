@@ -43,4 +43,4 @@ functions:
     handler: handler.refresh
     timeout: 60
     events:
-      - schedule: rate(1 minute)
+      - schedule: rate(2 minute)

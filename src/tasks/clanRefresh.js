@@ -5,7 +5,7 @@ import BungieSDK from 'bungie-sdk-alpha';
 import SqlizeConnection from '../database'
 
 export default class ClanRefresh {
-    constructor(db) {
+    constructor() {
         this.db  = SqlizeConnection();
     }
 
@@ -140,13 +140,13 @@ export default class ClanRefresh {
                         .all(updates)
                         .then(() => {
                             console.log("Refresh succesfully completed");
-
+                            this.db.close()
                             resolve();
                         })
                         .catch(e => {
                             console.log(e);
                             console.log("An error has occured.");
-
+                            this.db.close()
                             reject();
                         });
                 });    
